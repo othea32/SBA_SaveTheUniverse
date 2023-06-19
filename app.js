@@ -96,4 +96,19 @@ const game = {
    this.retreatGameBtn.addEventListener("click", () => this.retreatGame());
  },
 
+ 
+ // Start the game
+ startGame() {
+  this.startGameBtn.disabled = true;
+  this.createAliens();
+  this.showGameLog("Game started! You are the captain of the USS Assembly.");
+  this.showGameLog("You have encountered a horde of aliens. Your mission is to destroy them all!");
+  this.showGameLog(`You are currently battling Alien Ships ${this.alienIndex + 1}.`);
+  this.showGameLog(`Alien Ship ${this.alienIndex + 1} has hull: ${this.aliens[this.alienIndex].hull}`);
+  this.showGameLog(`You have hull: ${this.player.hull}`);
+  this.enableButtons();
+},
+
+
+
 
