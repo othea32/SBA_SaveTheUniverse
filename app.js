@@ -1,32 +1,5 @@
-// Instructions
-// Create a Vanilla JavaScript and name it "Save the Universe."
-// using your knowledge of JavaScript to build a rudimentary space battle game.
-
-// This task is to build something according to specification.
-
-// Pretend you have received the specification below for a project.
-
-// Planning your program is a challenge unto itself. START SIMPLE. Break the problem down as far as you can and don't move on until the smallest piece works.
-// Once you've figured out the basics, it's up to you to make the game you want. Remember: your game does not have to be elegant. The only thing that matters is that it works.
-// This assignment will be used to assess how well you:
-
-// Put together what you have previously learned.
-// Use available resources to solve problems.
-// Take requirements and expand upon them as needed.
-// Use available time appropriately and meet deadlines.
-// Learn new skills through experimentation.
-// The game will be programmed for and played using:
-
-// window.prompt to get input from the user.
-// Buttons in the browser.
-// You can also use console.log.
-
-// This is your first mini-project. You should not style the page until you first get all of the functionality down. That being said, there are several optional bonus objectives listed at the bottom of this page should you find the time to challenge yourself.
-
 // 🛸 SPECIFICATIONS
 // 1. Build a game of battling alien spaceships using Javacript.
-
-
 
 // Earth has been attacked by a horde of aliens! You are the captain of the USS Assembly, on a mission to destroy every last alien ship.
 // Battle the aliens as you try to destroy them with your lasers.
@@ -34,10 +7,8 @@
 // Your strength is that you have the initiative and get to attack first. However, you do not have targeting lasers and can only attack the aliens in order.
 // After you have destroyed a ship, you have the option to make a hasty retreat.
 
-// 2. Each ship has the following properties:
+
 // 2. A game round would look like this:
-
-
 
 // You attack the first alien ship.
 // If the ship survives, it attacks you.
@@ -101,14 +72,101 @@ const game = {
  startGame() {
   this.startGameBtn.disabled = true;
   this.createAliens();
-  this.showGameLog("Game started! You are the captain of the USS Assembly.");
-  this.showGameLog("You have encountered a horde of aliens. Your mission is to destroy them all!");
-  this.showGameLog(`You are currently battling Alien Ships ${this.alienIndex + 1}.`);
-  this.showGameLog(`Alien Ship ${this.alienIndex + 1} has hull: ${this.aliens[this.alienIndex].hull}`);
-  this.showGameLog(`You have hull: ${this.player.hull}`);
+  this.showGameLog("Game started! You are the captain of the USS Assembly.", "color: green; font-weight: bold;");
+  this.showGameLog("You have encountered a horde of aliens. Your mission is to destroy them all!", "color: green; font-weight: bold;");
+  this.showGameLog(`You are currently battling Alien Ships ${this.alienIndex + 1}.`, "color: green; font-weight: bold;");
+  this.showGameLog(`Alien Ship ${this.alienIndex + 1} has hull: ${this.aliens[this.alienIndex].hull}`, "color: green; font-weight: bold;");
+  this.showGameLog(`You have hull: ${this.player.hull}`, "color: green; font-weight: bold;");
   this.enableButtons();
 },
 
+// Create alien ships
+createAliens() {
+ for (let i = 0; i < 6; i++) {
+   const alien = new Alien();
+   this.aliens.push(alien);
+ }
+},
 
+// Attack
+attackGame() {
+ const alien = this.aliens[this.alienIndex];
+ const playerAccuracy = Math.random();
+
+ if (playerAccuracy <= this.player.accuracy) {
+   alien.hull -= this.player.firepower;
+   this.showGameLog(`You attacked Alien Ship ${this.alienIndex + 1} and dealt ${this.player.firepower} damage.`, "color: blue; font-weight: bold;");
+ } else {
+   this.showGameLog("Your attack missed!", "color: red; font-weight: bold;");
+ }
+
+ if (alien.hull > 0) {
+   this.alienAttack(alien);
+ } else {
+   this.alienIndex++;
+   if (this.alienIndex < this.aliens.length) {
+     this.showGameLog(`You destroyed Alien Ship ${this.alienIndex}.`, "color: green; font-weight: bold;");
+     this.showGameLog(`You are now battling Alien Ship ${this.alienIndex + 1}.`, "color: blue; font-weight: bold;");
+     this.showGameLog(`Alien Ship ${this.alienIndex + 1} has hull: ${this.aliens[this.alienIndex].hull}`, "color: blue; font-weight: bold;");
+     this.showGameLog(`You have hull: ${this.player.hull}`, "color: blue; font-weight: bold;");
+   } else {
+     this.endGame(true);
+   }
+ }
+},
+
+// Alien's attack
+alienAttack(alien) {
+ const alienAccuracy = Math.random();
+
+ if (alienAccuracy <= alien.accuracy) {
+   this.player.hull -= alien.firepower;
+   this.showGameLog(`Alien Ship ${this.alienIndex + 1} attacked you and dealt ${alien.firepower} damage.`, "color: red; font-weight: bold;");
+ } else {
+   this.showGameLog(`Alien Ship ${this.alienIndex + 1}'s attack missed!`, "color: green; font-weight: bold;");
+ }
+
+ if (this.player.hull > 0) {
+   this.showGameLog(`You have hull: ${this.player.hull}`, "color: blue; font-weight: bold;");
+ } else {
+   this.endGame(false);
+ }
+},
+
+// Retreat
+retreatGame() {
+ this.endGame(false);
+},
+
+// End the game
+endGame(isVictory) {
+ if (isVictory) {
+   this.showGameLog("Congratulations! You have destroyed all the alien ships. Earth is saved!", "color: green; font-weight: bold;");
+ } else {
+   this.showGameLog("Game over! The aliens have destroyed your ship. Earth is doomed...", "color: red; font-weight: bold;");
+ }
+ this.disableButtons();
+},
+
+// Show game log messages
+showGameLog(message, style) {
+ // this.gameLog.innerText += `${message}`;
+ this.gameLog.innerHTML += `<p style="${style}">${message}</p>`;
+},
+
+// Game buttons
+enableButtons() {
+ this.attackGameBtn.disabled = false;
+ this.retreatGameBtn.disabled = false;
+},
+
+disableButtons() {
+ this.attackGameBtn.disabled = true;
+ this.retreatGameBtn.disabled = true;
+}
+};
+
+// Initialize the game
+game.init();
 
 

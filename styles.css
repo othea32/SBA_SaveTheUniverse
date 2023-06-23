@@ -2,3 +2,40 @@
  text-align: center;
  margin-top: 50px;
 }
+
+h1 {
+ font-size: 24px;
+ margin-bottom: 20px;
+}
+
+button {
+ margin: 5px;
+ padding: 10px 20px;
+ font-size: 16px;
+}
+
+#gamelog {
+ text-align: left;
+ margin-top: 20px;
+ padding: 10px;
+ border: 1px solid #ccc;
+ background-color: #f9f9f9;
+}
+
+#startGame {
+ background-color: #4CAF50;
+ color: white;
+ border: none;
+}
+
+#retreatGame {
+ background-color: #f44336;
+ color: white;
+ border: none;
+}
+
+#attackGame {
+ background-color: #008CBA;
+ color: white;
+ border: none;
+}
