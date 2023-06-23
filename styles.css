@@ -4,7 +4,8 @@
 }
 
 h1 {
- font-size: 24px;
+ font-size: 48px;
+ font-family: cursive;
  margin-bottom: 20px;
 }
 
@@ -40,6 +41,11 @@ button {
  background-color: #008CBA;
  color: white;
  border: none;
+}
+
+p {
+ font-family: cursive;
+ margin: 0;
 }
 
 

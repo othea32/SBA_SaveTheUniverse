@@ -141,9 +141,9 @@ retreatGame() {
 // End the game
 endGame(isVictory) {
   if (isVictory) {
-    this.showGameLog("Congratulations! You have destroyed all the alien ships. Earth is saved!", "color: green; font-weight: bold; font-size: 20px;");
+    this.showGameLog("Congratulations! You have destroyed all the alien ships. Earth is saved!", "color: green; font-weight: bold; font-size: 26px;");
   } else {
-    this.showGameLog("Game over! The aliens have destroyed your ship. Earth is doomed...", "color: red; font-weight: bold; font-size: 20px;");
+    this.showGameLog("Game over! The aliens have destroyed your ship. Earth is doomed...", "color: red; font-weight: bold; font-size: 26px;");
   }
   this.disableButtons();
 },
